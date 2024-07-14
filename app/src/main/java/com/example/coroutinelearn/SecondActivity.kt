@@ -1,5 +1,6 @@
 package com.example.coroutinelearn
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -81,5 +82,9 @@ class SecondActivity : AppCompatActivity() {
     private suspend fun getInstaFollowers() : Int{
         delay(1000)
         return 56
+    }
+
+    fun gotoNext(view: View) {
+        startActivity(Intent(this, AsyncActivity::class.java))
     }
 }
