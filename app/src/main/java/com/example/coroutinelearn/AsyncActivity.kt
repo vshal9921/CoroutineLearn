@@ -56,6 +56,22 @@ class AsyncActivity : AppCompatActivity() {
         }
     }
 
+    // another approach of above using single scope
+    // both tasks can be cancelled by cancelling launch job
+    // Both the async blocks are executed in parallel in a single scope
+    private suspend fun callFollowerAPI1() {
+
+        CoroutineScope(Dispatchers.IO).launch {
+
+            var fbFollowers = async { callFbApi() }
+            var instaFollowers = async { callInstaApi() }
+
+            withContext(Dispatchers.Main){
+                binding.textFbFollowers.text = "FB = ${fbFollowers.await()}"
+                binding.textInstaFollowers.text = "Insta = ${instaFollowers.await()}"
+            }
+        }
+    }
 
     private suspend fun callFbApi() : Int {
         delay(2500)
