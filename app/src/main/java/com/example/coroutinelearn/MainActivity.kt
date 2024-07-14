@@ -8,21 +8,30 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
+import com.example.coroutinelearn.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
     private var TAG = "MainActivity"
+    private lateinit var mainViewModel: MainViewModel
+    private lateinit var activityBinding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
+
+        activityBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(activityBinding.root)
+
+        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
     }
 
     fun longRunningTask(){
