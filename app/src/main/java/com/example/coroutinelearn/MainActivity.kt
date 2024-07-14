@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.coroutinelearn.databinding.ActivityMainBinding
 import kotlinx.coroutines.*
 
@@ -41,6 +42,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+    }
+
     fun performTask(view: View) {
 
         CoroutineScope(Dispatchers.IO).launch {
@@ -57,9 +63,18 @@ class MainActivity : AppCompatActivity() {
         MainScope().launch(Dispatchers.Default) {
             Log.d(TAG, " 3 - ${Thread.currentThread().name}")
         }
+
+        lifecycleScope.launch(Dispatchers.IO) {
+
+            while (true && isActive){
+                delay(1000)
+                Log.d(TAG, "lifeCycleScope in main running")
+            }
+        }
     }
 
     fun gotoNextScreen(view: View) {
         startActivity(Intent(this, SecondActivity::class.java))
+        finish()
     }
 }

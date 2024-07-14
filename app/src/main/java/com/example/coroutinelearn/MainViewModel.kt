@@ -15,7 +15,7 @@ class MainViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             while(true){
                 delay(500)
-                Log.d(TAG, "viewModelScope coroutine running")
+                // Log.d(TAG, "viewModelScope coroutine running")
             }
         }
     }
