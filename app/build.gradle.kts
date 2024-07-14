@@ -50,6 +50,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.android)          // coroutines
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)    // viewModel
 
 }
