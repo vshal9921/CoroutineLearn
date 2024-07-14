@@ -5,29 +5,18 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="#99cd99">
+    tools:context=".SecondActivity"
+    android:background="#ab1232">
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button1"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="Get Followers"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:onClick="performTask"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button2"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Go to Next"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button1"
-        android:onClick="gotoNextScreen"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
