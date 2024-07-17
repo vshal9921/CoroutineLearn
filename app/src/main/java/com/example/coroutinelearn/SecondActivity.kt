@@ -8,6 +8,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.coroutinelearn.databinding.ActivitySecondBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +23,7 @@ class SecondActivity : AppCompatActivity() {
 
     private val TAG = "SecondActivity"
     private lateinit var binding: ActivitySecondBinding
+    private lateinit var secondViewModel: SecondViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,61 +32,26 @@ class SecondActivity : AppCompatActivity() {
         binding = ActivitySecondBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        secondViewModel = ViewModelProvider(this).get(SecondViewModel::class.java)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        secondViewModel.fbFollowers.observe(this, Observer { follower ->
+            binding.textFbFollowers.text = "FB = $follower"
+        })
+
+        secondViewModel.instaFollowers.observe(this, Observer { follower ->
+            binding.textInstaFollowers.text = "Insta = ${follower}"
+        })
     }
 
     fun getFollowers(view: View) {
-        CoroutineScope(Dispatchers.IO).launch {
-            callFollowersAPI()
-        }
+        secondViewModel.callFollowersAPI()
     }
-
-    private suspend fun callFollowersAPI(){
-
-        var fbFollowers = 0
-        var instaFollowers = 0
-
-        // Both the FB and Insta coroutines run in parallel
-
-        val jobFb = CoroutineScope(Dispatchers.IO).launch {
-            fbFollowers = getFbFollowers()
-            Log.d(TAG, "FB followers = ${fbFollowers}")   // executed after getFbFollowers, returns 72
-        }
-
-        val jobInsta = CoroutineScope(Dispatchers.IO).launch {
-            instaFollowers = getInstaFollowers()
-
-            Log.d(TAG, "FB followers = ${instaFollowers}")
-        }
-
-        // To publish results after both coroutines have been executed, use join()
-
-        jobFb.join()
-        jobInsta.join()
-        Log.d(TAG, "Thread = ${Thread.currentThread().name}")
-
-        withContext(Dispatchers.Main){
-            binding.textFbFollowers.text = "FB = $fbFollowers"
-            binding.textInstaFollowers.text = "Insta = $instaFollowers"
-            Log.d(TAG, "Thread = ${Thread.currentThread().name}")
-        }
-
-    }
-
-    private suspend fun getFbFollowers() : Int {
-        delay(2000)
-        return 72
-    }
-
-    private suspend fun getInstaFollowers() : Int{
-        delay(1000)
-        return 56
-    }
-
     fun gotoNext(view: View) {
         startActivity(Intent(this, AsyncActivity::class.java))
     }
