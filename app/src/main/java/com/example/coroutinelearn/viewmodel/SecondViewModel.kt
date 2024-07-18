@@ -1,4 +1,4 @@
-package com.example.coroutinelearn
+package com.example.coroutinelearn.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

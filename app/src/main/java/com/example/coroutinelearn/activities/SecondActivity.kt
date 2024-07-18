@@ -1,4 +1,4 @@
-package com.example.coroutinelearn
+package com.example.coroutinelearn.activities
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.coroutinelearn.R
+import com.example.coroutinelearn.viewmodel.SecondViewModel
 import com.example.coroutinelearn.databinding.ActivitySecondBinding
 
 // Example of launch{} coroutine builder

@@ -1,4 +1,4 @@
-package com.example.coroutinelearn
+package com.example.coroutinelearn.activities
 
 import android.os.Bundle
 import android.view.View
@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.coroutinelearn.R
 import com.example.coroutinelearn.databinding.ActivityAsyncBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
