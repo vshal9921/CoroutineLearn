@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.coroutinelearn.viewmodel.MainViewModel
 import com.example.coroutinelearn.R
 import com.example.coroutinelearn.databinding.ActivityMainBinding
+import com.example.coroutinelearn.viewmodelfactory.MainViewModelFactory
 import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +29,9 @@ class MainActivity : AppCompatActivity() {
         activityBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityBinding.root)
 
-        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        // Parameterized viewModel using ViewModelFactory
+        val initialValue = 10
+        mainViewModel = ViewModelProvider(this, MainViewModelFactory(initialValue)).get(MainViewModel::class.java)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

@@ -7,7 +7,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class MainViewModel(initialValue: Int) : ViewModel() {
+
+    var counter = initialValue
+
 
     private val TAG = "Main"
 
